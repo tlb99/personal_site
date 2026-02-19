@@ -3,8 +3,8 @@ FROM node:20-slim AS builder
 
 WORKDIR /app
 
-COPY package*.json ./
-RUN npm ci --no-audit --prefer-offline
+COPY package.json ./
+RUN npm install --no-audit
 
 COPY . .
 RUN npm run build
