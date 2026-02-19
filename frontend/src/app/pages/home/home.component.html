@@ -1,0 +1,55 @@
+<div class="container">
+  <!-- Hero -->
+  <section class="hero">
+    <p class="hero-eyebrow">// hello world</p>
+    <h1>I build things<br /><span style="color: var(--accent)">for the web</span></h1>
+    <p class="hero-sub">
+      Developer, tinkerer, and self-hosting enthusiast. I write about software,
+      hardware, and everything in between.
+    </p>
+    <div class="hero-actions">
+      <a routerLink="/blog" class="btn btn-primary">Read the blog</a>
+      <a href="https://github.com" target="_blank" class="btn btn-secondary">GitHub</a>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section>
+    <div class="section-title">
+      <h2>Skills &amp; Stack</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card" *ngFor="let s of skills">
+        <div class="skill-icon">{{ s.icon }}</div>
+        <div class="skill-name">{{ s.name }}</div>
+        <div class="skill-level">{{ s.level }}</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recent Posts -->
+  <section>
+    <div class="section-title">
+      <h2>Recent Posts</h2>
+      <a routerLink="/blog">View all →</a>
+    </div>
+
+    <div *ngIf="loading" class="spinner"></div>
+
+    <div *ngIf="!loading && recentPosts.length === 0" class="empty-state">
+      <p>No posts yet. <a routerLink="/blog/new">Write your first one!</a></p>
+    </div>
+
+    <div class="posts-grid" *ngIf="!loading && recentPosts.length > 0">
+      <a
+        class="card post-card"
+        *ngFor="let post of recentPosts"
+        [routerLink]="['/blog', post.slug]"
+      >
+        <div class="post-meta">{{ formatDate(post.created_at) }}</div>
+        <div class="post-title">{{ post.title }}</div>
+        <div class="post-summary">{{ post.summary }}</div>
+      </a>
+    </div>
+  </section>
+</div>

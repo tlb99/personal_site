@@ -1,0 +1,56 @@
+<div class="container page">
+  <div class="page-header">
+    <div>
+      <h1>Blog</h1>
+      <p>Thoughts on software, hardware, and self-hosting.</p>
+    </div>
+    <a routerLink="/blog/new" class="btn btn-primary">+ New Post</a>
+  </div>
+
+  <!-- Filter controls -->
+  <div class="controls">
+    <span style="font-size:0.85rem; color: var(--text-muted)">Show:</span>
+    <button class="toggle-btn" [class.active]="!showAll" (click)="showAll && toggleShowAll()">Published</button>
+    <button class="toggle-btn" [class.active]="showAll" (click)="!showAll && toggleShowAll()">All</button>
+  </div>
+
+  <div *ngIf="loading" class="spinner"></div>
+
+  <div *ngIf="!loading && posts.length === 0" class="empty-state">
+    <h3>No posts yet</h3>
+    <p>Start writing — <a routerLink="/blog/new">create your first post</a>.</p>
+  </div>
+
+  <div class="post-list" *ngIf="!loading && posts.length > 0">
+    <a
+      class="post-item"
+      *ngFor="let post of posts"
+      [routerLink]="['/blog', post.slug]"
+    >
+      <div class="post-top">
+        <span class="post-date">{{ formatDate(post.created_at) }}</span>
+        <span class="badge" [class.badge-published]="post.published" [class.badge-draft]="!post.published">
+          {{ post.published ? 'Published' : 'Draft' }}
+        </span>
+      </div>
+      <div class="post-title">{{ post.title }}</div>
+      <div class="post-summary">{{ post.summary }}</div>
+      <div class="post-top" style="margin-top:1rem; justify-content:space-between">
+        <span class="post-arrow">Read more →</span>
+        <span style="display:flex; gap:0.5rem">
+          <a
+            class="btn btn-secondary"
+            style="font-size:0.8rem; padding: 0.3rem 0.7rem"
+            [routerLink]="['/blog/edit', post.id]"
+            (click)="$event.stopPropagation()"
+          >Edit</a>
+          <button
+            class="btn btn-danger"
+            style="font-size:0.8rem; padding: 0.3rem 0.7rem"
+            (click)="deletePost($event, post)"
+          >Delete</button>
+        </span>
+      </div>
+    </a>
+  </div>
+</div>

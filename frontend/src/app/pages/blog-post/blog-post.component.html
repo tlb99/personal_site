@@ -1,0 +1,32 @@
+<div class="container page">
+
+  <div *ngIf="loading" class="spinner"></div>
+
+  <div *ngIf="!loading && error" class="error-state">
+    <h2>Post not found</h2>
+    <p style="margin:1rem 0">The post you're looking for doesn't exist.</p>
+    <a routerLink="/blog" class="btn btn-secondary">← Back to blog</a>
+  </div>
+
+  <div *ngIf="!loading && post">
+    <a routerLink="/blog" class="back-link">← Back to blog</a>
+
+    <header class="post-header">
+      <div class="post-meta">
+        <span>{{ formatDate(post.created_at) }}</span>
+        <span class="badge" [class.badge-published]="post.published" [class.badge-draft]="!post.published">
+          {{ post.published ? 'Published' : 'Draft' }}
+        </span>
+      </div>
+      <h1 class="post-title">{{ post.title }}</h1>
+      <p class="post-summary">{{ post.summary }}</p>
+    </header>
+
+    <article class="post-content prose" [innerHTML]="renderedContent"></article>
+
+    <div style="margin-top:2rem; display:flex; gap:0.75rem">
+      <a [routerLink]="['/blog/edit', post.id]" class="btn btn-secondary">Edit post</a>
+      <a routerLink="/blog" class="btn btn-secondary">← All posts</a>
+    </div>
+  </div>
+</div>

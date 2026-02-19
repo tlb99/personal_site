@@ -1,0 +1,40 @@
+# Python / Flask
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg
+*.egg-info/
+dist/
+build/
+*.db
+.env
+venv/
+.venv/
+instance/
+
+# Node / Angular
+node_modules/
+frontend/dist/
+frontend/.angular/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS / Editor
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+Thumbs.db
+
+# Docker
+.docker/
+
+# Secrets
+*.pem
+*.key
+*.env
+.env.*
+!.env.example
