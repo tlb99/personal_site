@@ -1,0 +1,20 @@
+services:
+  frontend-dev:
+    image: node:20-slim
+    container_name: personal_site_frontend_dev
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+    # --poll is required on Windows: inotify doesn't fire across bind-mounts
+    command: >
+      sh -c "npm install --no-audit &&
+             npx ng serve --host 0.0.0.0 --poll 500
+               --proxy-config proxy.conf.json"
+    ports:
+      - "4200:4200"
+      - "49153:49153"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - internal
